@@ -1,5 +1,5 @@
-#Continuous-Soil-Properties
-Prediction of continuous soil properties at 30m resolution for CONUS
+# Continuous-Soil-Properties project
+Prediction of continuous soil properties at 30m resolution for the Continental USA
 
 # Properties to be predicted
 Property     | Units         | Notes

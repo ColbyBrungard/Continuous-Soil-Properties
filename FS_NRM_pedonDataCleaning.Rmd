@@ -11,6 +11,7 @@ Load required libraries
 ```{r libraries}
 library(sf)
 library(dplyr)
+library(tidyverse)
 ```
 
 
@@ -20,40 +21,26 @@ library(dplyr)
 loc <- st_read("D:/Data/Forest Service Pedon data/SAMPLE_PT_ESRI_SHP.shp")
 dim(loc)
 
-# Legacy pedon data without location info were located on top of Forest Service (FS) buildings when this data was created. Since this is non-sensical these points need to be removed. I tried filtering points by all those that fell inside national forest boundaries, but this excluded ~ 10K observations, many of which were obviously valid pedons, but happened to fall just outisde of the actual boundaries. 
+# A. Legacy pedon data without location info were located on top of Forest Service (FS) buildings when this data was created. Since this is non-sensical these points need to be removed. I tried filtering points by all those that fell inside national forest boundaries, but this excluded ~ 10K observations, many of which were obviously valid pedons, but happened to fall just outisde of the actual boundaries.
 
-# Remove duplicates. This removes all of the duplicates, but keeps one point at the FS buildings. 
+# A1. Remove duplicates. This removes all of the duplicates, but keeps one point at the FS buildings which need to be removed.
 loc2 <- distinct(loc, .keep_all = TRUE)
+# st_write(loc2, "./loc2.shp") # This was later deleted as an unnecessary intermediate step. 
 
-# Remove all of the coordinates that are not valid locations. I did this by manually reviewing the point dataset on a google satellite hybrid baselayer. It was quite easy to identify locations on FS buildings because they were 1) usually located away from the cluster of points in each forest, and 2) they were in a town (and when I zoomed in far enough I the hybrid baselayer actually labeled the FS building). I suppose that I could have filtered with a shapefile of US towns, but I would rather do this manually to become more familiar with the data points.
+# A2. Identify and remove all remaining points that still have invalid locations. 
+# These were difficult to identify because many of the points were in small municipaliities that were hard to clearly identify. This was accomplished using a spatial query to select all points from loc2.shp that were within popluated areas. Popluated areas were identifed using USA_Census_Populated_Places.shp which is a shapefile of populated places that was obtained from: https://hub.arcgis.com/datasets/esri::usa-census-populated-places. "U.S. Populated Place Areas represents populated place areas that include census designated places, cities, and incorporated places in the United States identified by the U.S. Census Bureau."https://www.arcgis.com/home/item.html?id=4e75a4f7daaa4dfa8b9399ea74641895
+# A3 Selected locations within populated areas were exported to a shapefile and manually reviewed as poplulated areas include some sparsely populated areas, ski resorts, etc. Each point that did not fall in a popluated area was removed from this file leaving me with a shapefile of only locations that are not valid. The SITE_ID column was copied from this shapefile which resulted in the following list of pedons with invalid locations. This shapefile was not kept. 
+bad_SITE_ID <- c("1-28", "1189-102-F29-1", "00-0502", "90-104", "0515110-M", "78UT650_BVF_LS1_13", "76UT650_SPR_MF1_26", "76UT650_SFP_SC5_12", "76UT650_SFP_SC4_11", "76UT650_BVF_SC6_8", "76UT650_BVF_LS1_10", "75UT650_SPR_SSH4_20", "75UT650_SPR_FM5_11", "75UT650_SPR_FM4_23", "75UT650_SPR_FM1_22", "75UT650_SFP_MF3_2_a", "75UT650_BVF_TM6_4", "75UT650_BVF_TM19_6", "75UT650_BVF_SC9_5", "75UT650_BVF_SC2_11", "75UT650_BVF_S17_9", "75UT650_BVF_S17_7", "75UT650_BVF_S14_12", "669", "607", "96-KV-102", "92-TC-068", "06-12-80-1", "4-13-5(2)", "7A/74", "BLDT01", "01-76-03G", "275.1-T1S1-29-696-128", "10-477-59: P1", "36.7(706)-S3-20-491-125", "10-584-100: P3", "-484-190: P1", "1 (WET SPOT)", "881-117-2", "781-167-N4", "781-167-N3", "781-167-N2", "1078-171-T1", "396", "1474-023-1JR", "000-1032", "184-66-RM", "NE009-009AB-7", "LP-1", "00100N", "FS0108078701023", "FS011604915E003", "FS0155029472012", "FS0112039281080", "FS0112039281079", "FS01080475TE073", "FS01080204DB031", "720", "FS01030192MR039", "FS01020195VK003", "FS01020780DS021", "FS0105019361012")
 
-TO DO: manually go through the points and ID them. 
+# A4 Remove invalid site id's. 
+loc3 <- loc2[!loc2$SITE_ID %in% bad_SITE_ID,]
 
-
-
-
-
-
-
-# Select only those that are within actual National forests because sometimes legacy data was put on top of the field office if no GPS point was recorded.
-# Load shapefile of National Forest Service administrative boundaries
-fsAdmin <- readOGR("D:/Cascades DSM/Boundaries", layer = "S_USA.AdministrativeForest")
-# Reproject to match pedon coordinates
-fsAdmin2 <- spTransform(fsAdmin, CRS("+proj=merc +a=6378137 +b=6378137 +lat_ts=0.0 +lon_0=0.0 +x_0=0.0 +y_0=0 +k=1.0 +units=m +nadgrids=@null +no_defs"))
-# Perform the actual selection (takes ~ 
-loc$inNF <- !is.na(over(loc, as(fsAdmin2, "SpatialPolygons")))
-loc2 <- loc[loc$inNF == 'TRUE',]
- 
-writeOGR(loc2, ".", "plotsInForests", driver="ESRI Shapefile")
-
-dim(loc) #65497
-dim(loc2) #54527
- 
- 
+# A5 I just realized I had forgotten to remove all of the pedons that were in AK. Remove these with a filter based on latitude < 49 degrees
+loc4 <- filter(loc3, LAT_DD < 49)
+dim(loc4) # 49698
 ```
 
-
-
+I AM HERE. 
 2. Site level attributes
 ```{r}
 
