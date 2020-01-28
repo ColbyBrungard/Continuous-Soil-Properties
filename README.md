@@ -23,15 +23,14 @@ electrical conductivity | (dS/m) |
 
 # Semi-detailed Structure of Project. 
 
-##A. Pedon data Cleaining and Prep per Dataset [per property?]
+## A. Pedon data Cleaining and Prep per Dataset [per property?]
 ### A.1 Forest Service NRM data
 ### A.2 NASIS point data
 ### A.3 KSSL data
 ### A.4 RaCA
 ### A.5 Other point data
 
-
-## B. Depth Harmonization [per property] (0-5, 5-15, 15-30, 30-60, 60-100, 100-200 cm)
+## B. Depth Harmonization (0-5, 5-15, 15-30, 30-60, 60-100, 100-200 cm)  [per property]
 
 ## C. Build Regression Matrix 
 ### C.1 Extract DEM derivatives
@@ -45,12 +44,12 @@ electrical conductivity | (dS/m) |
 ### D.4 Build continental model
 ### D.5 Build regional models
 
-
 ## E. Model Evaluation
-### E.1 Evaulate each regional model 
-### E.2 Covariate importance
+### E.1 Evalute contiental model
+### E.2 Evaulate each regional model 
+### E.3 Covariate importance
 
-## F. Prediction [how to use regional models?]
+## F. Spatial Predictions [how to use regional models?]
 
 ## G. Spatial Uncertainty
 
