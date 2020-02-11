@@ -5,7 +5,21 @@ output: html_notebook
 ---
 
 Cleaning of the Forest Service NRM Inventory and Mapping database. 
-Suz originally sent me the data, but we should probably get a more authoritative source. 
+
+Data Provenance: 
+This data was sent to me by Suzann Kienast-Brown who got it from:
+Kyle Stephens
+Soil Data Quality Specialist
+Phone: 503-414-3289
+E-mail: kyle.stephens@or.usda.gov
+Regional Office Staff - Portland, OR
+USDA-Natural Resources Conservation Service
+1201 NE Lloyd Blvd., Suite 900
+Portland, OR 97232
+FAX: 855-651-9082
+
+Kyle in turn got this data from Martin Ferwerda <Ferwerda, Martin -FS <mferwerda@fs.fed.us>
+
 
 Load required libraries
 ```{r libraries}
@@ -42,6 +56,8 @@ dim(loc4) # 49698
 
 I AM HERE. 
 2. Site level attributes
+Site data in the underlying data included: Geology (not sure of source, maybe observed, maybe extracted from geology maps), 
+
 ```{r}
 
 ```
