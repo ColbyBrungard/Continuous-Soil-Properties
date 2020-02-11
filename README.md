@@ -23,7 +23,7 @@ electrical conductivity | (dS/m) |
 
 # Semi-detailed Structure of Project. 
 
-## A. Pedon data Cleaining and Prep per Dataset [per property?]
+## A. Pedon Data Cleaning and Prep per Dataset [per property?]
 ### A.1 Forest Service NRM data
 ### A.2 NASIS point data
 ### A.3 KSSL data
