@@ -23,14 +23,15 @@ electrical conductivity | (dS/m) |
 
 # Semi-detailed Structure of Project. 
 
-## A. Pedon Data Cleaning and Prep per Dataset [per property?]
-### A.1 Forest Service NRM data
+## A. Pedon dataset cleaning and prep [per property?]
+### A.1 Forest Service NRM data [Colby]
 ### A.2 NASIS point data
 ### A.3 KSSL data
 ### A.4 RaCA
 ### A.5 Other point data
 
-## B. Depth Harmonization (0-5, 5-15, 15-30, 30-60, 60-100, 100-200 cm)  [per property]
+## B. Depth Harmonization 
+### (0-5, 5-15, 15-30, 30-60, 60-100, 100-200 cm)  [per property]
 
 ## C. Build Regression Matrix 
 ### C.1 Extract DEM derivatives
