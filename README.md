@@ -46,7 +46,7 @@ electrical conductivity | (dS/m) |
 ### D.5 Build regional models
 
 ## E. Model Evaluation
-### E.1 Evalute contiental model
+### E.1 Evalute continental model
 ### E.2 Evaulate each regional model 
 ### E.3 Covariate importance
 
