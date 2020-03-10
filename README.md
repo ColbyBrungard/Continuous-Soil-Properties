@@ -33,7 +33,7 @@ electrical conductivity | (dS/m) |
 ## B. Depth Harmonization 
 ### (0-5, 5-15, 15-30, 30-60, 60-100, 100-200 cm)  [per property]
 
-## C. Build Regression Matrix 
+## C. Build Training Matrix 
 ### C.1 Extract DEM derivatives
 ### C.2 Extract spectral derivatives
 ### C.3 Extract other geospatial covariates
